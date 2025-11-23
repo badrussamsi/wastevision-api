@@ -10,7 +10,7 @@ from torchvision import models, transforms
 
 
 MODELS_DIR = Path("models")
-DEFAULT_MODEL_NAME = "wastevision_v1"
+DEFAULT_MODEL_NAME = "wastevision_v2"
 
 
 def get_device() -> torch.device:
