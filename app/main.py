@@ -13,6 +13,12 @@ from ml.inference import (
     DEFAULT_MODEL_NAME,
 )
 
+from pathlib import Path
+from ml import inference
+
+# Path ke model v2.2
+MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "wastevision_v2_2.pth"
+
 app = FastAPI(
     title="WasteVision API",
     description="Backend API for WasteVision waste image classification",
