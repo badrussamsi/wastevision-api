@@ -14,7 +14,6 @@ from ml.inference import (
 )
 
 from pathlib import Path
-from ml import inference
 
 # Path ke model v2.2
 MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "wastevision_v2_2.pth"
@@ -27,12 +26,12 @@ app = FastAPI(
 
 @app.get("/ready", tags=["monitoring"])
 def ready():
-    # Check 1: file model exists
+    # Check file exists
     file_ok = MODEL_PATH.exists()
 
-    # Check 2: inference.model exists and not None
-    model_obj = getattr(inference, "model", None)
-    model_ok = model_obj is not None
+    # Check global model (loaded in startup)
+    global model
+    model_ok = model is not None
 
     return {"ready": file_ok and model_ok}
 
