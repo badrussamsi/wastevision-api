@@ -19,6 +19,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
+@app.get("/ready", tags=["monitoring"])
+def ready():
+    try:
+        from ml import inference
+        # cek global variable di inference.py
+        model_loaded = getattr(inference, "model", None) is not None
+        return {"ready": model_loaded}
+    except Exception:
+        return {"ready": False}
+
 # --- CORS (biar Flutter / tools lain gampang akses) ---
 app.add_middleware(
     CORSMiddleware,
