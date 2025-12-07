@@ -21,13 +21,14 @@ app = FastAPI(
 
 @app.get("/ready", tags=["monitoring"])
 def ready():
-    try:
-        from ml import inference
-        # cek global variable di inference.py
-        model_loaded = getattr(inference, "model", None) is not None
-        return {"ready": model_loaded}
-    except Exception:
-        return {"ready": False}
+    # Check 1: file model exists
+    file_ok = MODEL_PATH.exists()
+
+    # Check 2: inference.model exists and not None
+    model_obj = getattr(inference, "model", None)
+    model_ok = model_obj is not None
+
+    return {"ready": file_ok and model_ok}
 
 # --- CORS (biar Flutter / tools lain gampang akses) ---
 app.add_middleware(
