@@ -13,11 +13,27 @@ from ml.inference import (
     DEFAULT_MODEL_NAME,
 )
 
+from pathlib import Path
+
+# Path ke model v2.2
+MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "wastevision_v2_2.pth"
+
 app = FastAPI(
     title="WasteVision API",
     description="Backend API for WasteVision waste image classification",
     version="1.0.0",
 )
+
+@app.get("/ready", tags=["monitoring"])
+def ready():
+    # Check file exists
+    file_ok = MODEL_PATH.exists()
+
+    # Check global model (loaded in startup)
+    global model
+    model_ok = model is not None
+
+    return {"ready": file_ok and model_ok}
 
 # --- CORS (biar Flutter / tools lain gampang akses) ---
 app.add_middleware(
