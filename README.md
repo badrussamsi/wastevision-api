@@ -43,8 +43,9 @@ This project showcases:
 - Very fast inference even on CPU-only cloud  
 
 ### ⚠️ Known Challenges
-- Glossy plastic may resemble metal  
-- Harsh shadows reduce confidence  
+- Glossy surfaces (plastic **and paper**) can confuse the model due to reflection patterns  
+- Low-light indoor conditions may reduce texture visibility  
+- Paper items with smooth or coated finishes may be misclassified as Plastic  
 
 ---
 
@@ -56,6 +57,7 @@ This project showcases:
 | Plastic wrap | Plastic | Plastic | **98.6%** |
 | Metal can | Metal | Metal | **99.8%** |
 | Paper | Paper | Paper | **100%** |
+| Paper (low light / glossy) | Paper | Plastic | 96–99% |
 
 ---
 
